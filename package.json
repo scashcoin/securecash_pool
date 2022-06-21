@@ -1,0 +1,36 @@
+{
+    "name": "turtle-pool",
+    "version": "0.0.18",
+    "license": "GPL-2.0",
+    "authors": "Matthew Little",
+    "contributors": [
+        "Brandon Lehmann <brandonlehmann@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/turtlecoin/turtle-pool"
+    },
+    "scripts": {
+        "test": "npm install && node tests/dependencyTests.js"
+    },
+    "dependencies": {
+        "async": "1",
+        "base58-native": "*",
+        "bignum": "*",
+        "cli-color": "^1.4.0",
+        "dateformat": "*",
+        "redis": "*",
+        "safe-buffer": "^5.1.2",
+        "turtlecoin-cryptonote-util": "0.0.7",
+        "turtlecoin-multi-hashing": "0.0.19",
+        "turtlecoin-utils": "0.0.13"
+    },
+    "engines": {
+        "node": ">=6"
+    },
+    "standard": {
+        "ignore": [
+            "/website/*js"
+        ]
+    }
+}
