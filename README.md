@@ -1,13 +1,4 @@
-![image]([https://user-images.githubusercontent.com/34389545/35821974-62e0e25c-0a70-11e8-87dd-2cfffeb6ed47.png](https://s2.coinmarketcap.com/static/img/coins/200x200/4487.png))
-
-#### Master Build Status
-[![Build Status](https://travis-ci.org/turtlecoin/node-turtle-pool.svg?branch=master)](https://travis-ci.org/turtlecoin/node-turtle-pool)
-
-#### Development Build Status
-[![Build Status](https://travis-ci.org/turtlecoin/node-turtle-pool.svg?branch=development)](https://travis-ci.org/turtlecoin/node-turtle-pool)
-
-
-turtle-pool (for NodeJS LTS)
+Secure Cash Pool (for NodeJS LTS)
 ====================
 Formerly known as cryptonote-forknote-pool, forked from Forknote Project.
 
@@ -85,7 +76,6 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * [CryptoNote Forum](https://forum.cryptonote.org/)
 * [CryptoNote Universal Pool Forum](https://bitcointalk.org/index.php?topic=705509)
 * [Forknote](https://forknote.net)
-* [TurtleCoin](http://chat.turtlecoin.lol)
 
 #### Pools Using This Software
 
@@ -96,9 +86,9 @@ Usage
 ===
 
 #### Requirements
-* Turtlecoind daemon
-* turtle-service
-* [Node.js](http://nodejs.org/) LTS (6,8,10) ([follow these installation instructions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions))
+* scashcoind daemon
+* poolwallet (not walletd)
+* [Node.js](http://nodejs.org/) LTS (8) ([follow these installation instructions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions))
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install -y libssl-dev`
@@ -126,13 +116,13 @@ Installing pool on different Linux distributives is different because it depends
 sudo apt-get install -y git build-essential redis-server libboost1.55-all-dev cmake libssl-dev node-gyp
 ```
 
-##### Debian 9 installation
-These are the steps taken to install pool on Debian 9.  These steps will also work on Ubuntu 16 & 18:
+##### Ubuntu 18 installation
+These are the steps taken to install pool on Debian 9.  Maybe work on Debian (not tested):
 
 ```bash
 sudo apt-get install -y git curl wget screen build-essential redis-server libboost-all-dev cmake libssl-dev node-gyp
 ```
-I have currently tested this on Node 8.11.1 and 8.12.0.
+I have currently tested this on Node 8.17.0.
 
 You can install node here: (https://nodejs.org/en/download/package-manager/)
 
@@ -145,17 +135,17 @@ sudo apt-get install -y nodejs
 
 I have found using a screen session to keep everything running on the server works well.
 
-Grab your most recent TurtleCoin release (https://github.com/turtlecoin/turtlecoin/releases/) then launch your daemon and sync your chain.
+Grab your most recent Secure Cash release (https://github.com/scashcoin/wallets) then launch your daemon and sync your chain.
 
-Once your daemon is synced with the network start your turtle-service and redis-server.
+Once your daemon is synced with the network start your poolwallet and redis-server.
 
 #### 1) Downloading & Installing
 
 Clone the repository and run `npm install` for all the dependencies to be installed:
 
 ```bash
-git clone https://github.com/turtlecoin/turtle-pool turtle-pool
-cd turtle-pool
+git clone https://github.com/scashcoin/securecash_pool scsx-pool
+cd scsx-pool
 npm install && npm test
 ```
 
@@ -171,7 +161,7 @@ Explanation for each field:
 "symbol": "DSH",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinUnits": 1000000000000,
+"coinUnits": 100000000,
 
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
@@ -298,10 +288,11 @@ Explanation for each field:
     "enabled": true,
     "interval": 600, //how often to run in seconds
     "maxAddresses": 50, //split up payments if sending to more than this many addresses
-    "transferFee": 5000000000, //fee to pay for each transaction
-    "minPayment": 100000000000, //miner balance required before sending payment
+    "transferFee": 100, //fee to pay for each transaction
+    "mixin": 0,
+    "minPayment": 100000000, //miner balance required before sending payment
     "maxTransactionAmount": 0, //split transactions by this amount(to prevent "too big transaction" error)
-    "denomination": 100000000000 //truncate to this precision and store remainder
+    "denomination": 100000000 //truncate to this precision and store remainder
 },
 
 /* Module that monitors the submitted block maturities and manages rounds. Confirmed
@@ -333,13 +324,13 @@ Explanation for each field:
 
 /* Coin daemon connection details. */
 "daemon": {
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "port": 29081
 },
 
 /* Wallet daemon connection details. */
 "wallet": {
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "port": 29082,
     "password": "<replace with rpc password>"
 },
@@ -578,7 +569,7 @@ Credits
 * [Wolf0](https://bitcointalk.org/index.php?action=profile;u=80740) - Helped try to deobfuscate some of the daemon code for getting a bug fixed
 * [Tacotime](https://bitcointalk.org/index.php?action=profile;u=19270) - helping with figuring out certain problems and lead the bounty for this project's creation
 * [fancoder](https://github.com/fancoder/) - See his repo for the changes
-* [TurtleCoin](https://github.com/turtlecoin/) - For making this great again
+* [SecureCash](https://github.com/scashcoin/) - For making this great again
 
 License
 -------
