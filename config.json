@@ -86,13 +86,14 @@
   },
   "payments": {
     "enabled": true,
-    "allowPaymentId": true,
+    "allowPaymentId": false,
     "interval": 120,
-    "maxAddresses": 50,
-    "transferFee": 0.00000100,
-    "minPayment": 1,
-    "minPaymentIdPayment": 10000000,
-    "maxTransactionAmount": 0,
+    "maxAddresses": 25,
+    "mixin": 0,
+    "transferFee": 100,
+    "minPayment": 100000000,
+    "minPaymentIdPayment": 0,
+    "maxTransactionAmount": 300000000,
     "denomination": 100000000
   },
   "blockUnlocker": {
@@ -115,12 +116,12 @@
     "password": "your_password"
   },
   "daemon": {
-    "host": "127.0.0.1",
-    "port": 21001
+    "host": "0.0.0.0",
+    "port": 31001
   },
   "wallet": {
     "host": "127.0.0.1",
-    "port": 21002,
+    "port": 31002,
     "password": "<replace with rpc password>"
   },
   "redis": {
